@@ -1,7 +1,8 @@
-This philosophy behind this package is that it is often better to find out all of the errors that have occured in a computation and report them simultaneously, rather than aborting as soon as the first error is encountered.  Towards this end, this module supplies a type of  /combinable error messages/ so that all of the errors from subcomputations can be gathered and presented together.
-
+This philosophy behind this package is that it is often better to find out all of the errors that have occured in a computation and report them simultaneously, rather than aborting as soon as the first error is encountered.  Towards this end, this module supplies a type of _combinable error messages_ so that all of the errors from subcomputations can be gathered and presented together.
 The following provides an example of how these can be used:
 
+<pre>
+<code>
    sqrtWithError :: Float -> Either ErrorMessage Float
    sqrtWithError x
         | x < 0
@@ -22,39 +23,61 @@ The following provides an example of how these can be used:
         case sumWithError (sqrtWithError x) (sqrtWithError y) of
             Right value -> "The value is " ++ show value
             Left error -> show . formatErrorMessage $ error
+</code>
+</pre>
 
-The result of <code>showSumOrErrorOf (-1) (-2)</code> is the string,
+The result of @showSumOrErrorOf (-1) (-2)@ is the string,
 
+<pre>
     Error computing the square root of -1:
         Square roots cannot be taken of negative numbers.
     Error computing the square root of -2:
         Square roots cannot be taken of negative numbers.
+</pre>
 
-whereas the result of <code>showSumOrErrorOf (-1) (-1)</code> is the string,
+whereas the result of @showSumOrErrorOf (-1) (-1)@ is the string,
 
+<pre>
     Error computing the square root of -1:
         Square roots cannot be taken of negative numbers.
+</pre>
 
 Note how the error message only appears once;  this is because the process of combining the error messages automatically eliminates all identical headings under the assumption that they came from the same original computation, as was the case here.
 
-Currently, the definition of <code>sumWithError</code> is largely boilerplate.  Happily, the Haskell community has done a lot of work to identify patterns such as these and to write libraries that allow us to express them concisely.  In particular, a standard trick when working with errors like this is to express the calculation as a 'Monad', such as by using the following definition:
+Currently, the definition of @sumWithError@ is largely boilerplate.  Happily, the Haskell community has done a lot of work to identify patterns such as these and to write libraries that allow us to express them concisely.  In particular, a standard trick when working with errors like this is to express the calculation as a 'Monad', such as by using the following definition:
 
+<pre>
+<code>
     sumWithError_2 argument1 argument2 = do
         value1 <- argument1
         value2 <- argument2
         return (value1 + value2)
+</code>
+</pre>
 
 Or, even more concisely:
 
+<pre>
+<code>
     sumWithError_3 = liftM2 (+)
+</code>
+</pre>
 
-Unfortunately though, neither of these definitions have the same semantics as the original @sumWithError@, as using both we get the following error message for <code>showSumOrErrorOf (-1) (-2)</code>:
+Unfortunately though, neither of these definitions have the same semantics as the original @sumWithError@, as using both we get the following error message for @showSumOrErrorOf (-1) (-2)@:
 
+<pre>
+<code>
     Error computing the square root of -1:
         Square roots cannot be taken of negative numbers.
+</code>
+</pre>
 
-That is, we have lost the second of the two error messages.  The reason for this is that 'Monad'-style error processing expresses the computation as a sequence, and gives up as soon as it sees any error.  In this case of <code>sumWithError</code>, however, the evaluation of the second argument can proceed even if there was an error in the first argument.  Thus, rather than using a 'Monad' pattern, we use an 'Applicative' pattern:
+That is, we have lost the second of the two error messages.  The reason for this is that 'Monad'-style error processing expresses the computation as a sequence, and gives up as soon as it sees any error.  In this case of @sumWithError@, however, the evaluation of the second argument can proceed even if there was an error in the first argument.  Thus, rather than using a 'Monad' pattern, we use an 'Applicative' pattern:
 
+<pre>
+<code>
     sumWithError_4 = liftA2 (+)
+</code>
+</pre>
 
 Now both error messages are displayed.
