@@ -1,3 +1,6 @@
+#--unknown-language--@+leo-ver=4-thin
+#--unknown-language--@+node:gcross.20091203120301.1652:@shadow README.textile
+#--unknown-language--@@language text
 This philosophy behind this package is that it is often better to find out all of the errors that have occured in a computation and report them simultaneously, rather than aborting as soon as the first error is encountered.  Towards this end, this module supplies a type of  /combinable error messages/ so that all of the errors from subcomputations can be gathered and presented together.
 
 The following provides an example of how these can be used:
@@ -58,3 +61,5 @@ That is, we have lost the second of the two error messages.  The reason for this
     sumWithError_4 = liftA2 (+)
 
 Now both error messages are displayed.
+#--unknown-language--@-node:gcross.20091203120301.1652:@shadow README.textile
+#--unknown-language--@-leo

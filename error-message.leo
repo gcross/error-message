@@ -12,7 +12,7 @@
 <v t="gcross.20091202203048.1583"><vh>@chapters</vh></v>
 <v t="gcross.20091202203048.1623"><vh>@shadow error-message.cabal</vh></v>
 <v t="gcross.20091202203048.6991"><vh>@shadow Setup.hs</vh></v>
-<v t="gcross.20091203120301.1652"><vh>@shadow README</vh></v>
+<v t="gcross.20091203120301.1652"><vh>@shadow README.textile</vh></v>
 <v t="gcross.20091202203048.1624"><vh>@path Data</vh>
 <v t="gcross.20091202203048.1603"><vh>@shadow ErrorMessage.hs</vh></v>
 </v>
