@@ -95,7 +95,7 @@
 module Data.ErrorMessage
   (
     -- * The ErrorMessage Type
-     ErrorMessage
+     ErrorMessage(..)
     -- $error_message_type
 
     -- ** Instances for ErrorMessage
@@ -321,6 +321,13 @@ gatherResultsOrError = mapLeft mconcat . gatherResultsOrErrors
 --  The 'ErrorMessage' type is simply a map from 'String' to 'Doc'; the reason 
 --  why the values are 'Doc' is because this allows us to compose them using 
 --  the combinators in Leijen's pretty-printing library.
+--  
+--  The reason why the internal type is a 'Map' rather than a List is because 
+--  we /assume/ that error message headings are unique, and so if we see the 
+--  same heading it must have come from the same error.  If we did not make 
+--  such an assumption, then we would have no way of preventing the same error 
+--  from appearing several times in the message in the case that many 
+--  sub-computations all depended on the same erroneous result.
 
 
 
