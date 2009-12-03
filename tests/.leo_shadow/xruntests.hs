@@ -209,6 +209,40 @@ main = defaultMain $
                 getWordLengthsOrError ["foo","apple","cat","bar"]
 
         -- @-node:gcross.20091202203048.7051:getWordLengthsOrError
+        -- @+node:gcross.20091203120301.1651:Multiline strings
+        ,testGroup "Multiline strings" $
+            [testCase "errorMessageText" $
+                assertEqual
+                    "Was the expected message produced?"
+                    (show . vcat . map text $
+                        ["A poem:"
+                        ,"    Roses are red."
+                        ,"Violets are blue."
+                        ]
+                    )
+                    .
+                    show
+                    .
+                    formatErrorMessage
+                    $
+                    errorMessageText "A poem:" "Roses are red.\nViolets are blue."
+            ,testCase "errorMessageTextFromMultilineString" $
+                assertEqual
+                    "Was the expected message produced?"
+                    (show . vcat . map text $
+                        ["A poem:"
+                        ,"    Roses are red."
+                        ,"    Violets are blue."
+                        ]
+                    )
+                    .
+                    show
+                    .
+                    formatErrorMessage
+                    $
+                    errorMessageTextFromMultilineString "A poem:" "Roses are red.\nViolets are blue."
+            ]
+        -- @-node:gcross.20091203120301.1651:Multiline strings
         -- @-others
         ]
     -- @-node:gcross.20091202203048.6993:Documentation examples

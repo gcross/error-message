@@ -10,9 +10,9 @@
 --  This philosophy behind this package is that it is often better to find out 
 --  all of the errors that have occured in a computation and report them 
 --  simultaneously, rather than aborting as soon as the first error is 
---  encountered.  Towards this end, this module supplies a type of /combinable 
---  error messages/ so that all of the errors from subcomputations can be 
---  gathered and presented together.
+--  encountered.  Towards this end, this module supplies a type of
+--  /combinable error messages/ so that all of the errors from subcomputations 
+--  can be gathered and presented together.
 --  
 --  The following provides an example of how these can be used:
 --  
@@ -116,10 +116,10 @@ module Data.ErrorMessage
 
     ,errorMessage
     ,errorMessageText
-    ,errorMessageFromMultilineText
+    ,errorMessageTextFromMultilineString
     ,leftErrorMessage
     ,leftErrorMessageText
-    ,leftErrorMessageFromMultilineText
+    ,leftErrorMessageTextFromMultilineString
 
     -- * Formatting of Error Messages
 
@@ -152,7 +152,6 @@ import qualified Data.Map as Map
 import Text.PrettyPrint.ANSI.Leijen
 
 newtype ErrorMessage = ErrorMessage { unwrapErrorMessage :: Map String Doc }
--- | test of tryhing to add docs
 
 instance (Monoid e) => Applicative (Either e) where
     pure = Right
@@ -213,21 +212,40 @@ leftErrorMessageText heading = Left . errorMessageText heading
 --  
 --  Although one could alternatively use 'errorMessageText', if one were to do 
 --  this then one would only see only the first line of be indented when the 
---  error message is formatted for output;  the reason for this is because the 
---  line breaks are not known to the 'Doc' combinators, and so the indentation 
---  is not handled properly.  The function 'errorMessageFromMultilineText' 
---  takes care of this for you.
+--  error message is formatted for output.  For example,
+--  
+--  > errorMessageText "A poem:" "Roses are red.\nViolets are blue."
+--  
+--  produces the following (formatted) error message:
+--  
+--  > A poem:
+--  >     Roses are red.
+--  > Violets are blue.
+--  
+--  The reason for this is because the line breaks are not known to the 'Doc' 
+--  combinators, and so the indentation is not handled properly.  The function 
+--  'errorMessageTextFromMultilineString' takes care of this for you.  For 
+--  example,
+--  
+-- > errorMessageTextFromMultilineString "A poem:" "Roses are red.\nViolets are blue."
+--  
+--  produces the following (formatted) error message:
+--  
+--  > A poem:
+--  >     Roses are red.
+--  >     Violets are blue.
+--  
 
-errorMessageFromMultilineText :: String -> String -> ErrorMessage
-errorMessageFromMultilineText heading = errorMessage heading . vcat . map text . lines
+errorMessageTextFromMultilineString :: String -> String -> ErrorMessage
+errorMessageTextFromMultilineString heading = errorMessage heading . vcat . map text . lines
 
 -- |
---  The function 'leftErrorMessageFromMultilineText' is 
---  'errorMessageFromMultilineText' composed with the 'Left' constructor for 
---  convenience.
+--  The function 'leftErrorMessageTextFromMultilineString' is 
+--  'errorMessageTextFromMultilineString' composed with the 'Left' constructor 
+--  for convenience.
 
-leftErrorMessageFromMultilineText :: String -> String -> Either ErrorMessage a
-leftErrorMessageFromMultilineText heading = Left . errorMessageFromMultilineText heading
+leftErrorMessageTextFromMultilineString :: String -> String -> Either ErrorMessage a
+leftErrorMessageTextFromMultilineString heading = Left . errorMessageTextFromMultilineString heading
 -- |
 --  This function takes an 'ErrorMessage' and formats it into a 'Doc'.  It 
 --  does this by converting the headings into 'text' objects, merging them 
@@ -315,7 +333,7 @@ gatherResultsOrError = mapLeft mconcat . gatherResultsOrErrors
 --  this is just that of the underlying Map type.
 --  
 --  * The 'Error' instance allows us to work inside the 'ErrorT' monad using 
---  'ErrorMessage' as the error type.  Although, it was mentioned earlier that 
+--  'ErrorMessage' as the error type.  Although it was mentioned earlier that 
 --  using 'Applicative' is generally preferable since it finds as many errors 
 --  as possible before halting, there are times when a later computation 
 --  really does need the result of an earlier computation, and in this case 
@@ -324,9 +342,10 @@ gatherResultsOrError = mapLeft mconcat . gatherResultsOrErrors
 --  Note that in order for 'ErrorMessage' to be an instance of 'Error', I 
 --  needed to define how to create an 'ErrorMessage' without a heading 
 --  ('strMsg') and possibly without even a body ('noMsg');  however, if this 
---  ever happens, it means that the error was not handled properly --- say, 
---  that there was a pattern match failure.  Thus, the heading of errors from 
---  such a source defaults to: /Error caused by the programmer:/
+--  ever happens, it means that the error was not handled properly --- e.g., 
+--  when there is a pattern match failure.  Thus, the heading of errors 
+--  created by 'noMsg' and 'strMsg' is
+--  /Error caused by the programmer:/
 
 
 -- $doc_instances
@@ -381,12 +400,12 @@ gatherResultsOrError = mapLeft mconcat . gatherResultsOrErrors
 
 -- $error_message_creation
 --  Up to now we have spent a lot time discussing how to combine 
---  ErrorMessages, but little time discussing how to produce them.  The 
+--  'ErrorMessage's, but little time discussing how to produce them.  The 
 --  provided functions for doing this are as follows:
 
 -- $error_message_formatting
---  The end purpose of 'ErrorMessage' \'s existance is to be displayed to the 
---  user.  Towards this end, the following functions format an ErrorMessage 
+--  The end purpose of 'ErrorMessage' \'s existence is to be displayed to the 
+--  user.  Towards this end, the following functions format an 'ErrorMessage' 
 --  into a 'Doc'.
 
 -- $gathering_results_with_errors

@@ -152,5 +152,37 @@ main = defaultMain $
                 $
                 getWordLengthsOrError ["foo","apple","cat","bar"]
 
+        ,testGroup "Multiline strings" $
+            [testCase "errorMessageText" $
+                assertEqual
+                    "Was the expected message produced?"
+                    (show . vcat . map text $
+                        ["A poem:"
+                        ,"    Roses are red."
+                        ,"Violets are blue."
+                        ]
+                    )
+                    .
+                    show
+                    .
+                    formatErrorMessage
+                    $
+                    errorMessageText "A poem:" "Roses are red.\nViolets are blue."
+            ,testCase "errorMessageTextFromMultilineString" $
+                assertEqual
+                    "Was the expected message produced?"
+                    (show . vcat . map text $
+                        ["A poem:"
+                        ,"    Roses are red."
+                        ,"    Violets are blue."
+                        ]
+                    )
+                    .
+                    show
+                    .
+                    formatErrorMessage
+                    $
+                    errorMessageTextFromMultilineString "A poem:" "Roses are red.\nViolets are blue."
+            ]
         ]
     ]
