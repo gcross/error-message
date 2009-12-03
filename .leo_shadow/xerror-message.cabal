@@ -2,7 +2,7 @@
 #--unknown-language--@+node:gcross.20091202203048.1623:@shadow error-message.cabal
 #--unknown-language--@@language Haskell
 Name:           error-message
-Version:        1.0
+Version:        1.0.1
 Cabal-Version:  >= 1.6
 License:        BSD3
 License-File:   LICENSE
@@ -11,7 +11,7 @@ Copyright:      (c) 2009 Gregory Crosswhite
 Maintainer:     gcross@phys.washington.edu
 Stability:      stable
 Homepage:       http://github.com/gcross/error-message
-Category:       Distribution
+Category:       Development, Error Handling
 Synopsis:       Composable error messages.
 Build-Type:     Simple
 Description:
