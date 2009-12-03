@@ -149,7 +149,7 @@ module Data.ErrorMessage
 
     -- * Gathering Results with Errors
 
-    -- $gathering_results
+    -- $gathering_results_with_errors
     ,gatherResultsOrErrors
     ,gatherResultsOrError
   ) where
