@@ -2,6 +2,7 @@
 #--unknown-language--@+node:gcross.20091203120301.1652:@shadow README.textile
 #--unknown-language--@@language text
 This philosophy behind this package is that it is often better to find out all of the errors that have occured in a computation and report them simultaneously, rather than aborting as soon as the first error is encountered.  Towards this end, this module supplies a type of _combinable error messages_ so that all of the errors from subcomputations can be gathered and presented together.
+
 The following provides an example of how these can be used:
 
 <pre>
