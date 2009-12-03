@@ -17,6 +17,7 @@ Description:
     rather than aborting as soon as the first error.  Towards this end, this module
     supplies a type of /combinable error messages/ so that all of the errors from
     subcomputations can be gathered and presented together.
+Extra-Source-Files: tests/runtests.hs
 
 Library
     Exposed:            True
