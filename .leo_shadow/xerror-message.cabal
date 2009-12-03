@@ -9,7 +9,7 @@ License-File:   LICENSE
 Author:         Gregory Crosswhite
 Copyright:      (c) 2009 Gregory Crosswhite
 Maintainer:     gcross@phys.washington.edu
-Stability:      provisional
+Stability:      stable
 Homepage:       http://github.com/gcross/error-message
 Category:       Distribution
 Synopsis:       Composable error messages.
