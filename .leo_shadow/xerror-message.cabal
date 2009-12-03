@@ -3,7 +3,7 @@
 #--unknown-language--@@language Haskell
 Name:           error-message
 Version:        1.0
-Cabal-Version:  >= 1.2
+Cabal-Version:  >= 1.6
 License:        BSD3
 License-File:   LICENSE
 Author:         Gregory Crosswhite
