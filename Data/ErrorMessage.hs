@@ -90,12 +90,12 @@
 --  
 ------------------------------------------------------------------------------
 
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 
 module Data.ErrorMessage
   (
     -- * The ErrorMessage Type
      ErrorMessage(..)
+    ,ErrorMessageOr
     -- $error_message_type
 
     -- ** Instances for ErrorMessage
@@ -152,6 +152,7 @@ import qualified Data.Map as Map
 import Text.PrettyPrint.ANSI.Leijen
 
 newtype ErrorMessage = ErrorMessage { unwrapErrorMessage :: Map String Doc }
+type ErrorMessageOr = Either ErrorMessage
 
 instance (Monoid e) => Applicative (Either e) where
     pure = Right

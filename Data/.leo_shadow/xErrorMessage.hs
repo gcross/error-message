@@ -107,7 +107,6 @@
 
 -- @<< Language extensions >>
 -- @+node:gcross.20091202203048.7000:<< Language extensions >>
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 -- @-node:gcross.20091202203048.7000:<< Language extensions >>
 -- @nl
 
@@ -115,6 +114,7 @@ module Data.ErrorMessage
   (
     -- * The ErrorMessage Type
      ErrorMessage(..)
+    ,ErrorMessageOr
     -- $error_message_type
 
     -- ** Instances for ErrorMessage
@@ -178,6 +178,7 @@ import Text.PrettyPrint.ANSI.Leijen
 -- @+node:gcross.20091202203048.1606:Types
 -- @+node:gcross.20091202203048.1607:ErrorMessage
 newtype ErrorMessage = ErrorMessage { unwrapErrorMessage :: Map String Doc }
+type ErrorMessageOr = Either ErrorMessage
 -- @-node:gcross.20091202203048.1607:ErrorMessage
 -- @-node:gcross.20091202203048.1606:Types
 -- @+node:gcross.20091202203048.1608:Instances
