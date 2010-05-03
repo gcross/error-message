@@ -1,5 +1,5 @@
 Name:           error-message
-Version:        1.1
+Version:        1.1.0.1
 Cabal-Version:  >= 1.6
 License:        BSD3
 License-File:   LICENSE
@@ -23,9 +23,9 @@ Extra-Source-Files: tests/runtests.hs
 Library
     Exposed:            True
     Exposed-Modules:    Data.ErrorMessage
-    Build-Depends:      base == 4.*,
-                        mtl == 1.*,
-                        containers == 0.2.*,
-                        either-unwrap >= 1.1 && < 2,
-                        InfixApplicative == 1.*,
-                        ansi-wl-pprint == 0.5.*
+    Build-Depends:      base >= 4.1 && < 4.3,
+                        mtl >= 1.1 && < 1.2,
+                        containers >= 0.2 && < 0.4,
+                        either-unwrap >= 1.1 && < 1.2,
+                        InfixApplicative >= 1.0 && < 1.2,
+                        ansi-wl-pprint >= 0.5 && < 0.6
