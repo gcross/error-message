@@ -4,7 +4,7 @@ Cabal-Version:  >= 1.6
 License:        BSD3
 License-File:   LICENSE
 Author:         Gregory Crosswhite
-Copyright:      (c) 2009 Gregory Crosswhite
+Copyright:      (c) 2009-2010 Gregory Crosswhite
 Maintainer:     gcross@phys.washington.edu
 Stability:      stable
 Homepage:       http://github.com/gcross/error-message
@@ -18,6 +18,8 @@ Description:
     encountered.  Towards this end, this module supplies a type of
     /combinable error messages/ so that all of the errors from subcomputations
     can be gathered and presented together.
+    .
+    New in version 1.1:  Removed Monoid instance for Doc (it should now be supplied by ansi-wl-pprint), added ErrorMessageOr type alias.
 Extra-Source-Files: tests/runtests.hs
 
 Library
