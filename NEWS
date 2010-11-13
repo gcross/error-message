@@ -1,0 +1,12 @@
+Version 1.1
+===========
+
+*) Removed Monoid instance for Doc.
+   (This should be now supplied by the ansi-wl-pprint package.)
+*) Updated package dependencies.
+*) Added ErrorMessageOr type alias.
+
+Version 1.0
+===========
+
+Initial release.
