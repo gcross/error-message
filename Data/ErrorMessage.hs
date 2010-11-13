@@ -173,10 +173,6 @@ instance Monoid ErrorMessage where
 instance Error Doc where
     noMsg = empty
     strMsg = text
-instance Monoid Doc where
-    mempty = empty
-    mappend = (<$$>)
-    mconcat = vcat
 -- |
 --  The function 'errorMessage' takes a heading and a body and produce an 
 --  ErrorMessage object from them;  this can be considered to be a thin 
