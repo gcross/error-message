@@ -1,3 +1,6 @@
+-- @+leo-ver=4-thin
+-- @+node:gcross.20091202203048.1623:@thin error-message.cabal
+-- @@language Haskell
 Name:           error-message
 Version:        1.1
 Cabal-Version:  >= 1.6
@@ -31,3 +34,6 @@ Library
                         either-unwrap >= 1.1 && < 1.2,
                         InfixApplicative >= 1.0 && < 1.2,
                         ansi-wl-pprint >= 0.5 && < 0.6
+-- @nonl
+-- @-node:gcross.20091202203048.1623:@thin error-message.cabal
+-- @-leo

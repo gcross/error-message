@@ -1,3 +1,5 @@
+-- @+leo-ver=4-thin
+-- @+node:gcross.20091202203048.6991:@thin Setup.hs
 import Control.Monad
 import Distribution.Simple
 import System.Exit
@@ -22,3 +24,5 @@ runzeTests _ _ _ _= do
   putStrLn ""
   system "runhaskell -i. -i./tests tests/runtests.hs"
   return ()
+-- @-node:gcross.20091202203048.6991:@thin Setup.hs
+-- @-leo
